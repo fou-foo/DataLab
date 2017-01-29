@@ -193,14 +193,18 @@ datos[recomendaciones, c( 'Refugio', 'Municipio', 'Dirección', 'Latitud', 'Long
                      'Responsable', 'Telefono') ]
 ```
 
-    ##           Refugio  Municipio       Dirección      Latitud      Longitud
-    ## 390 ESC. PRIMARIA ROSAMORADA   SAN MIGUELITO 22°06'28.55" 105°19'18.45"
-    ## 405 ESC. PRIMARIA ROSAMORADA    EL PESCADERO 22°11'17.05" 105°19'36.62"
-    ## 381 ESC. PRIMARIA ROSAMORADA LLANO DEL TIGRE 22°07'37.23" 105°18'17.80"
-    ##     Altitud              Responsable                            Telefono
-    ## 390      20  POLICARPIO DURAN FABIAN                         323-2352394
-    ## 405      15 JULIAN PALACIOS GONZALEZ PCM: 319-2340005   CEL. 323-1050294
-    ## 381      20    CAMILO GONZALEZ RAMOS                         200-1247915
+    ##                                    Refugio Municipio      Dirección
+    ## 135 ESCUELA PRIMARIA “FRANCISCO I. MADERO”  SAN BLAS ISLA DEL CONDE
+    ## 136 ESC. PRIMARIA “FELIPE CARRILLO PUERTO”  SAN BLAS  PLAYA RAMIREZ
+    ## 156                       ESCUELA PRIMARIA  SAN BLAS     LA CHIRIPA
+    ##          Latitud      Longitud Altitud          Responsable
+    ## 135 21º39'46.24" 105º21'42.62"      10 DIRECTOR DEL PLANTEL
+    ## 136 21º40'05.86" 105º21'32.22"      10 DIRECTOR DEL PLANTEL
+    ## 156 21º37'31.56" 105º18'43.66"      10 DIRECTOR DEL PLANTEL
+    ##                                              Telefono
+    ## 135 323-2370220                           323-2370584
+    ## 136                                       323-2370147
+    ## 156        PCM: 323-2850302       CEL. 045323-1050294
 
 Visualización
 =============
@@ -212,11 +216,14 @@ mapa <- ggmap(get_map(location=c(persona$lon[1], persona$lat[1]) ,
                       maptype = "roadmap", zoom = 10 ))
 ```
 
-    ## Map from URL : http://maps.googleapis.com/maps/api/staticmap?center=22.139444,-105.386111&zoom=10&size=640x640&scale=2&maptype=roadmap&language=en-EN&sensor=false
+    ## Map from URL : http://maps.googleapis.com/maps/api/staticmap?center=21.647222,-105.335278&zoom=10&size=640x640&scale=2&maptype=roadmap&language=en-EN&sensor=false
 
 ``` r
 mapa <-mapa  + geom_point(data=persona, aes(lon, lat), color = "blue", size= 5)
 res <- data.frame(lat = coord$lat[recomendaciones], lon = coord$lon[recomendaciones])
+save(persona,res, coord, file = "mapaReproducible.Rdata" ) # se agrega linea para                                           #guardar .Rdata con los datos necesarios
+                                    # para replicar mapa con leaflet
+
 mapa <- mapa + geom_point(data=coord, aes(lon, lat), color = "red", size= 2)
 mapa+geom_point(data=res, aes(lon, lat), color = "green", size= 3)
 ```

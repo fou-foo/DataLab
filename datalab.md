@@ -221,7 +221,7 @@ mapa <- ggmap(get_map(location=c(persona$lon[1], persona$lat[1]) ,
 ``` r
 mapa <-mapa  + geom_point(data=persona, aes(lon, lat), color = "blue", size= 5)
 res <- data.frame(lat = coord$lat[recomendaciones], lon = coord$lon[recomendaciones])
-save(persona,res, coord, file = "mapaReproducible.Rdata" ) # se agrega linea para                                           #guardar .Rdata con los datos necesarios
+save(persona,res, coord,datos, file = "mapaReproducible.Rdata" ) # se agrega linea para                                             #guardar .Rdata con los datos necesarios
                                     # para replicar mapa con leaflet
 
 mapa <- mapa + geom_point(data=coord, aes(lon, lat), color = "red", size= 2)
